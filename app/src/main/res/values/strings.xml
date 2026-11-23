@@ -13,7 +13,6 @@
     <string name="analyze_subtitle">Repérez les tentatives d\'arnaque en quelques secondes.</string>
     <string name="hint_message">Collez le message suspect ici…</string>
     <string name="button_analyze">Analyser le message</string>
-    <string name="button_example">Exemple</string>
     <string name="button_clear">Effacer</string>
     <string name="privacy_note">Analyse locale par défaut. Votre message n\'est jamais envoyé sans votre accord.</string>
     <string name="error_empty_message">Saisissez un message à analyser.</string>
@@ -28,7 +27,6 @@
     <string name="reasons_title">Pourquoi ce score ?</string>
     <string name="signals_title">Signaux détectés</string>
     <string name="engine_format">Moteur : %1$s</string>
-    <string name="demo_fraud_sms">Félicitations ! Vous avez gagné 1 000 000 FCFA. Envoyez votre code de validation reçu par SMS au 3900 maintenant pour recevoir votre prix.</string>
 
     <!-- Signalements -->
     <string name="report_button">Signaler ce message</string>

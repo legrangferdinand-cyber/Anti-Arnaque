@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,10 +30,9 @@ public final class AnalyzeFragment extends Fragment {
 
     private EditText messageInput;
     private Button analyzeButton;
-    private Button exampleButton;
     private Button clearButton;
     private ProgressBar loading;
-    private LinearLayout resultCard;
+    private View resultCard;
     private TextView scoreValue;
     private TextView levelValue;
     private TextView verdictValue;
@@ -56,7 +54,6 @@ public final class AnalyzeFragment extends Fragment {
 
         messageInput = view.findViewById(R.id.edit_message);
         analyzeButton = view.findViewById(R.id.button_analyze);
-        exampleButton = view.findViewById(R.id.button_example);
         clearButton = view.findViewById(R.id.button_clear);
         loading = view.findViewById(R.id.progress_analyze);
         resultCard = view.findViewById(R.id.card_result);
@@ -72,7 +69,6 @@ public final class AnalyzeFragment extends Fragment {
         historyDao = new HistoryDao(requireContext());
 
         analyzeButton.setOnClickListener(v -> runAnalysis());
-        exampleButton.setOnClickListener(v -> messageInput.setText(getString(R.string.demo_fraud_sms)));
         clearButton.setOnClickListener(v -> reset());
         reportButton.setOnClickListener(v -> askReport());
 
@@ -168,7 +164,6 @@ public final class AnalyzeFragment extends Fragment {
     private void setBusy(boolean busy) {
         loading.setVisibility(busy ? View.VISIBLE : View.GONE);
         analyzeButton.setEnabled(!busy);
-        exampleButton.setEnabled(!busy);
     }
 
     private void reset() {
