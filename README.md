@@ -1,51 +1,80 @@
+# Anti-Arnaque — frontend Android
 
-# Anti-Arnaque
+Application mobile Android (Java + XML) qui aide à repérer les SMS frauduleux :
+l'utilisateur colle un message, obtient un **score de risque** et une **explication**,
+consulte son **historique**, participe aux **signalements collectifs** et lit des
+**conseils de sécurité**.
 
-**Repérer les tentatives d’arnaque. Adopter les bons réflexes.**
+> Branche `frontend` : interface, persistance SQLite, abstraction d'analyse et client
+> de signalements. Le modèle Python/TFLite et le serveur Flask sont branchables sans
+> modifier l'interface (voir `docs/API_CONTRACT.md` et `docs/MODELE_IA.md`).
 
-Anti-Arnaque est une application mobile conçue pour aider les utilisateurs à reconnaître les situations suspectes et à mieux se protéger contre les arnaques.
+## Fonctionnalités livrées
 
-## Fonctionnalités envisagées
+| Fonctionnalité | Détail |
+| --- | --- |
+| Analyse de message | Score 0–100 %, niveau (faible / moyen / élevé), verdict, explications et signaux détectés |
+| Moteur d'analyse | Heuristique locale explicable par défaut ; modèle distant via API Flask si configuré ; repli automatique hors ligne |
+| Historique | SQLite local (`SQLiteOpenHelper`), liste filtrable visuellement, détail, suppression, effacement complet |
+| Signalement collectif | Envoi d'une empreinte SHA-256 (jamais le texte brut), file d'attente SQLite, synchronisation manuelle |
+| Conseil de sécurité | 7 réflexes affichés hors ligne |
+| Configuration | Depuis l'onglet *Signalements*, saisir l'URL du backend (ex. `http://10.0.2.2:5000` sur émulateur) |
+| Vie privée | `allowBackup=false`, trafic clair limité à localhost/10.0.2.2, consentement via dialogue avant signalement |
 
-À ajuster selon les fonctionnalités disponibles dans l’application :
+## Ouvrir dans Android Studio
 
-- Vérifier un message, un lien ou un numéro suspect.
-- Consulter des conseils pour repérer les tentatives d’arnaque.
-- Signaler une arnaque ou consulter des signalements.
-- Découvrir des alertes et des informations de prévention.
-
-## Pour commencer
-
-### Prérequis
-
-- [Framework ou environnement requis]
-- [Version minimale requise]
-- [Autre dépendance éventuelle]
-
-### Installation
-
-1. Cloner le dépôt :
-
+1. Cloner le dépôt puis checkout la branche `frontend` :
    ```bash
-   git clone [[URL_DU_DEPOT](https://github.com/legrangferdinand-cyber/Application-mobile-travaux)]
+   git checkout frontend
    ```
+2. Ouvrir **le dossier racine** `Anti-Arnaque` dans Android Studio (pas le dossier `app`).
+3. Laisser Android Studio télécharger les dépendances Gradle (wrapper 9.6.0, AGP 9.5.1).
+4. Choisir un émulateur ou un téléphone en mode développeur, puis **Run ▶**.
 
-2. Accéder au dossier du projet :
+SDK requis : Android SDK Platform 37, build-tools 36+, JDK 17 ou plus (JBR d'Android Studio convient).
+`minSdk = 24`, `targetSdk = 37`.
 
-   ```bash
-   cd [AntiArnaque]
-   ```
+### Commandes utiles
 
+```bash
+./gradlew :app:assembleDebug          # APK : app/build/outputs/apk/debug/app-debug.apk
+./gradlew :app:testDebugUnitTest      # tests JVM du classifieur
+./gradlew :app:connectedDebugAndroidTest  # test instrumenté (appareil branché)
+```
 
+## Architecture
 
-## Sécurité et confidentialité
+```
+app/src/main/java/com/antiarnaque/app/
+├── analysis/   SmsAnalyzer, HeuristicSmsAnalyzer, RemoteSmsAnalyzer, AnalyzerRepository
+├── data/       AppDatabase (SQLite), HistoryDao, ReportDao, PreferencesManager
+├── model/      AnalysisResult, HistoryEntry, ReportEntry, RiskLevel
+├── report/     ReportService, HttpReportService, ReportManager
+├── ui/         MainActivity + 4 fragments + HistoryAdapter
+└── util/       AppExecutors, PrivacyUtils
+```
 
-Les pratiques de collecte, de traitement et de conservation des données sont à préciser ici. Ne partagez jamais vos mots de passe, codes de validation ou informations bancaires en réponse à un message suspect.
+Le **contrat d'analyse** est résumé dans [`docs/API_CONTRACT.md`](docs/API_CONTRACT.md).
+Le branchement du **modèle TFLite** est décrit dans [`docs/MODELE_IA.md`](docs/MODELE_IA.md).
+Le branchement **Firebase** est décrit dans [`docs/INTEGRATION_FIREBASE.md`](docs/INTEGRATION_FIREBASE.md).
 
+## Éthique et vie privée
 
+- L'analyse heuristique se fait **entièrement sur l'appareil**.
+- Les signalements ne contiennent **ni le message en clair, ni numéro de téléphone** :
+  seule une empreinte SHA-256, le score et un motif sont transmis.
+- Aucune donnée n'est collectée sans action explicite de l'utilisateur et confirmation.
+- Les seuils de risque et les performances du modèle doivent être documentés dans le
+  rapport d'évaluation (précision, rappel, F1, matrice de confusion, déséquilibre des classes).
 
-## Contribution
+## État d'avancement
 
-Les contributions et suggestions sont les bienvenues. Pour proposer une amélioration ou signaler un problème, ouvrez une issue dans le dépôt ou contactez l’équipe à **[adresse de contact]**.
-
-
+- [x] Interface 4 onglets (analyse / historique / signalements / conseils)
+- [x] Analyse heuristique locale + explicabilité
+- [x] Intégration API distante (Flask) avec repli hors ligne
+- [x] Historique SQLite
+- [x] Signalements anonymisés + file d'attente
+- [x] Tests unitaires et de compilation
+- [ ] Modèle TFLite embarqué (à fournir par la branche ML)
+- [ ] Rapport d'évaluation du modèle (à fournir par la branche ML)
+- [ ] compilation release signée (APK de distribution)
