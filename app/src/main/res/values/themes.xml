@@ -13,6 +13,12 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
     </style>
 
+    <style name="Theme.AntiArnaque.Splash" parent="Theme.AntiArnaque">
+        <item name="android:windowBackground">@color/primary</item>
+        <item name="android:statusBarColor">@color/primary_dark</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
     <style name="SectionTitle">
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>

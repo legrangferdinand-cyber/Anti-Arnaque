@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Anti-Arnaque</string>
+    <string name="splash_app_name">anti-arnaque</string>
 
     <!-- Navigation -->
     <string name="nav_analyze">Analyser</string>
