@@ -23,7 +23,7 @@ public final class TipsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_tips, container, false);
         ListView list = view.findViewById(R.id.list_tips);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                requireContext(), R.array.security_tips, android.R.layout.simple_list_item_1);
+                requireContext(), R.array.security_tips, R.layout.item_tip);
         adapter.setNotifyOnChange(false);
         list.setAdapter(adapter);
         return view;

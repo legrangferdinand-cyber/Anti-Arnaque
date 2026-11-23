@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ligne d'un conseil de sécurité (au lieu du layout système simple_list_item_1). -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:lineSpacingExtra="2dp"
+    android:padding="12dp"
+    android:textColor="@color/text_primary"
+    android:textSize="14sp" />

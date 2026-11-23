@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -81,27 +80,17 @@ public final class ReportsFragment extends Fragment {
     }
 
     private void showConfigDialog() {
-        LinearLayout layout = new LinearLayout(requireContext());
-        layout.setOrientation(LinearLayout.VERTICAL);
-        int padding = (int) (16 * getResources().getDisplayMetrics().density);
-        layout.setPadding(padding, 0, padding, 0);
-
-        EditText apiInput = new EditText(requireContext());
-        apiInput.setHint(R.string.config_api_hint);
+        View dialogView = LayoutInflater.from(requireContext())
+                .inflate(R.layout.dialog_config, null);
+        EditText apiInput = dialogView.findViewById(R.id.edit_api_url);
+        EditText reportInput = dialogView.findViewById(R.id.edit_report_url);
         apiInput.setText(preferences.getApiBaseUrl());
-        apiInput.setSingleLine(true);
-        layout.addView(apiInput);
-
-        EditText reportInput = new EditText(requireContext());
-        reportInput.setHint(R.string.config_report_hint);
         reportInput.setText(preferences.getReportBaseUrl());
-        reportInput.setSingleLine(true);
-        layout.addView(reportInput);
 
         new MaterialAlertDialogBuilder(requireContext())
                 .setTitle(R.string.config_title)
                 .setMessage(R.string.config_message)
-                .setView(layout)
+                .setView(dialogView)
                 .setNegativeButton(R.string.cancel, null)
                 .setPositiveButton(R.string.save, (dialog, which) -> {
                     String api = apiInput.getText().toString().trim();
