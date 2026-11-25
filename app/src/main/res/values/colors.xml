@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Palette extraite de l'image fournie : bleu marine, sarcelle, bleu clair, blanc cassé. -->
+<resources>
+    <color name="primary">#002251</color>
+    <color name="primary_dark">#00162F</color>
+    <color name="accent">#01908D</color>
+    <color name="background">#E2EEFE</color>
+    <color name="surface">#FAFAFE</color>
+    <color name="text_primary">#002251</color>
+    <color name="text_secondary">#4A6280</color>
+
+    <!-- Niveaux de risque : teinte sarcelle pour faible, ambre pour moyen, rouge pour élevé. -->
+    <color name="risk_low">#01908D</color>
+    <color name="risk_medium">#B87400</color>
+    <color name="risk_high">#C2185B</color>
+    <color name="divider">#C7D8EF</color>
+    <color name="ic_launcher_background">#002251</color>
+</resources>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Anti-Arnaque</string>
+    <string name="splash_app_name">anti-arnaque</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Accueil</string>
+    <string name="nav_analyze">Analyser</string>
+    <string name="nav_history">Historique</string>
+    <string name="nav_reports">Signalements</string>
+    <string name="nav_tips">Conseils</string>
+
+    <!-- Écran d'accueil -->
+    <string name="home_title">Bienvenue sur Anti-Arnaque</string>
+    <string name="home_slogan">Détecter les pièges, protéger les utilisateurs.</string>
+    <string name="home_intro">Anti-Arnaque vous aide à évaluer un SMS suspect : collez un message, obtenez un score de risque indicatif et des explications, puis consultez votre historique. Les résultats sont des aides à la décision, jamais des garanties.</string>
+    <string name="home_stats_title">Votre activité</string>
+    <string name="home_analyses_label">Analyses enregistrées</string>
+    <string name="home_last_label">Dernier résultat</string>
+    <string name="home_pending_label">Signalements en attente</string>
+    <string name="home_last_none">Aucune analyse</string>
+    <string name="home_last_format">%1$s — %2$d %%</string>
+    <string name="home_actions_title">Que souhaitez-vous faire ?</string>
+    <string name="home_action_analyze">Analyser un SMS</string>
+    <string name="home_action_history">Consulter l\'historique</string>
+    <string name="home_action_report">Signaler un message</string>
+    <string name="home_action_tips">Conseils de sécurité</string>
+    <string name="home_privacy_title">Vie privée</string>
+    <string name="home_privacy_note">L\'analyse est locale par défaut. Aucun texte n\'est envoyé à un serveur sans votre accord. Ne saisissez jamais votre PIN, votre mot de passe ou un code reçu par SMS.</string>
+
+    <!-- Écran d'analyse -->
+    <string name="analyze_title">Analyser un SMS</string>
+    <string name="analyze_subtitle">Repérez les tentatives d\'arnaque en quelques secondes.</string>
+    <string name="hint_message">Collez le message suspect ici…</string>
+    <string name="button_analyze">Analyser le message</string>
+    <string name="button_clear">Effacer</string>
+    <string name="privacy_note">Analyse locale par défaut. Votre message n\'est jamais envoyé sans votre accord.</string>
+    <string name="error_empty_message">Saisissez un message à analyser.</string>
+    <string name="error_short_message">Le message est trop court.</string>
+    <string name="error_analysis_failed">L\'analyse a échoué. Réessayez.</string>
+    <string name="result_title">Résultat de l\'analyse</string>
+    <string name="score_label">Score de risque</string>
+    <string name="score_format">%d %%</string>
+    <string name="level_label">Niveau de risque</string>
+    <string name="verdict_danger">⚠️ Message suspect — ne suivez aucune instruction.</string>
+    <string name="verdict_safe">✓ Aucun signe suspect majeur détecté.</string>
+    <string name="reasons_title">Pourquoi ce score ?</string>
+    <string name="signals_title">Signaux détectés</string>
+    <string name="engine_format">Moteur : %1$s</string>
+
+    <!-- Signalements -->
+    <string name="report_button">Signaler ce message</string>
+    <string name="report_done">Signalé ✓</string>
+    <string name="report_dialog_title">Signaler ce message ?</string>
+    <string name="report_dialog_message">Seule une empreinte anonyme du message (SHA-256), le score et le motif seront transmis. Aucun texte brut ni donnée personnelle ne quitte votre téléphone.</string>
+    <string name="report_saved">Signalement enregistré localement.</string>
+    <string name="report_sent">Merci, signalement envoyé.</string>
+    <string name="report_no_endpoint">Aucun serveur configuré : signalement conservé localement.</string>
+    <string name="report_title">Signalements collectifs</string>
+    <string name="report_intro">Les signalements anonymisés aident la communauté à repérer les campagnes de fraude. Vous pouvez les envoyer à un serveur Flask ou à une fonction Firebase.</string>
+    <string name="report_stats">Total : %1$d  •  Envoyés : %2$d  •  En attente : %3$d</string>
+    <string name="report_endpoint">Serveur : %1$s</string>
+    <string name="report_endpoint_none">non configuré</string>
+    <string name="button_sync">Synchroniser les signalements</string>
+    <string name="report_sync_result">%1$d signalement(s) envoyé(s) sur %2$d en attente.</string>
+    <string name="button_configure">Configurer le serveur</string>
+    <string name="config_title">Configuration du backend</string>
+    <string name="config_message">Laissez vide pour utiliser uniquement l\'analyse heuristique locale. Exemple sur l\'émulateur : http://10.0.2.2:5000</string>
+    <string name="config_api_hint">URL de l\'API d\'analyse (Flask)</string>
+    <string name="config_report_hint">URL des signalements (optionnelle)</string>
+    <string name="config_saved">Configuration enregistrée.</string>
+
+    <!-- Historique -->
+    <string name="history_title">Historique des analyses</string>
+    <string name="history_empty">Aucune analyse pour le moment.\nRevenez dans l\'onglet Analyser pour commencer.</string>
+    <string name="clear_history_title">Effacer l\'historique ?</string>
+    <string name="clear_history_message">Toutes les analyses enregistrées sur cet appareil seront supprimées.</string>
+    <string name="button_clear_history">Tout effacer</string>
+    <string name="detail_date">Analysé le %1$s</string>
+    <string name="delete">Supprimer</string>
+    <string name="close">Fermer</string>
+    <string name="cancel">Annuler</string>
+    <string name="save">Enregistrer</string>
+
+    <!-- Conseils : écran volontairement vide, aucun texte affiché. -->
+</resources>
