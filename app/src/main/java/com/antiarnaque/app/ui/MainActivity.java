@@ -9,9 +9,11 @@ import androidx.fragment.app.FragmentTransaction;
 import com.antiarnaque.app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-/** Coque de l'application : 4 onglets, navigation sans Navigation Component. */
+/** Coque de l'application : 5 onglets, navigation sans Navigation Component. */
 public final class MainActivity extends AppCompatActivity {
 
+    private BottomNavigationView bottomNav;
+    private AccueilFragment accueilFragment;
     private AnalyzeFragment analyzeFragment;
     private HistoryFragment historyFragment;
     private ReportsFragment reportsFragment;
@@ -22,34 +24,50 @@ public final class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        accueilFragment = new AccueilFragment();
         analyzeFragment = new AnalyzeFragment();
         historyFragment = new HistoryFragment();
         reportsFragment = new ReportsFragment();
         tipsFragment = new TipsFragment();
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnItemSelectedListener(item -> {
-            int id = item.getItemId();
-            if (id == R.id.nav_analyze) {
-                show(analyzeFragment);
-                return true;
-            } else if (id == R.id.nav_history) {
-                show(historyFragment);
-                return true;
-            } else if (id == R.id.nav_reports) {
-                show(reportsFragment);
-                return true;
-            } else if (id == R.id.nav_tips) {
-                show(tipsFragment);
-                return true;
+            Fragment target = fragmentFor(item.getItemId());
+            if (target == null) {
+                return false;
             }
-            return false;
+            show(target);
+            return true;
         });
 
         if (savedInstanceState == null) {
-            bottomNav.setSelectedItemId(R.id.nav_analyze);
-            show(analyzeFragment);
+            selectTab(R.id.nav_home);
+        } else {
+            Fragment current = fragmentFor(bottomNav.getSelectedItemId());
+            show(current != null ? current : accueilFragment);
         }
+    }
+
+    /** Utilisé par l'accueil pour ouvrir une autre rubrique. */
+    public void selectTab(int itemId) {
+        if (bottomNav != null) {
+            bottomNav.setSelectedItemId(itemId);
+        }
+    }
+
+    private Fragment fragmentFor(int itemId) {
+        if (itemId == R.id.nav_home) {
+            return accueilFragment;
+        } else if (itemId == R.id.nav_analyze) {
+            return analyzeFragment;
+        } else if (itemId == R.id.nav_history) {
+            return historyFragment;
+        } else if (itemId == R.id.nav_reports) {
+            return reportsFragment;
+        } else if (itemId == R.id.nav_tips) {
+            return tipsFragment;
+        }
+        return null;
     }
 
     private void show(Fragment fragment) {

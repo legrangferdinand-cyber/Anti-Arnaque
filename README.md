@@ -5,9 +5,11 @@ l'utilisateur colle un message, obtient un **score de risque** et une **explicat
 consulte son **historique**, participe aux **signalements collectifs** et lit des
 **conseils de sécurité**.
 
-> Branche `frontend` : interface, persistance SQLite, abstraction d'analyse et client
-> de signalements. Le modèle Python/TFLite et le serveur Flask sont branchables sans
-> modifier l'interface (voir `docs/API_CONTRACT.md` et `docs/MODELE_IA.md`).
+> Branche `frontend-etoundi` : écran d'accueil ajouté comme première interface,
+> avec accès rapides et indicateurs locaux. L'onglet Conseils est conservé mais
+> volontairement vide. Le reste de l'interface, la persistance SQLite, l'abstraction
+> d'analyse et le client de signalements restent sur `frontend` (voir
+> `docs/API_CONTRACT.md` et `docs/MODELE_IA.md`).
 
 ## Fonctionnalités livrées
 
@@ -23,9 +25,9 @@ consulte son **historique**, participe aux **signalements collectifs** et lit de
 
 ## Ouvrir dans Android Studio
 
-1. Cloner le dépôt puis checkout la branche `frontend` :
+1. Cloner le dépôt puis checkout la branche `frontend-etoundi` :
    ```bash
-   git checkout frontend
+   git checkout frontend-etoundi
    ```
 2. Ouvrir **le dossier racine** `Anti-Arnaque` dans Android Studio (pas le dossier `app`).
 3. Laisser Android Studio télécharger les dépendances Gradle (wrapper 9.6.0, AGP 9.5.1).
@@ -69,7 +71,7 @@ Le branchement **Firebase** est décrit dans [`docs/INTEGRATION_FIREBASE.md`](do
 
 ## État d'avancement
 
-- [x] Interface 4 onglets (analyse / historique / signalements / conseils)
+- [x] Interface 5 onglets (accueil / analyse / historique / signalements / conseils vides)
 - [x] Analyse heuristique locale + explicabilité
 - [x] Intégration API distante (Flask) avec repli hors ligne
 - [x] Historique SQLite

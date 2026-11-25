@@ -4,10 +4,29 @@
     <string name="splash_app_name">anti-arnaque</string>
 
     <!-- Navigation -->
+    <string name="nav_home">Accueil</string>
     <string name="nav_analyze">Analyser</string>
     <string name="nav_history">Historique</string>
     <string name="nav_reports">Signalements</string>
     <string name="nav_tips">Conseils</string>
+
+    <!-- Écran d'accueil -->
+    <string name="home_title">Bienvenue sur Anti-Arnaque</string>
+    <string name="home_slogan">Détecter les pièges, protéger les utilisateurs.</string>
+    <string name="home_intro">Anti-Arnaque vous aide à évaluer un SMS suspect : collez un message, obtenez un score de risque indicatif et des explications, puis consultez votre historique. Les résultats sont des aides à la décision, jamais des garanties.</string>
+    <string name="home_stats_title">Votre activité</string>
+    <string name="home_analyses_label">Analyses enregistrées</string>
+    <string name="home_last_label">Dernier résultat</string>
+    <string name="home_pending_label">Signalements en attente</string>
+    <string name="home_last_none">Aucune analyse</string>
+    <string name="home_last_format">%1$s — %2$d %%</string>
+    <string name="home_actions_title">Que souhaitez-vous faire ?</string>
+    <string name="home_action_analyze">Analyser un SMS</string>
+    <string name="home_action_history">Consulter l\'historique</string>
+    <string name="home_action_report">Signaler un message</string>
+    <string name="home_action_tips">Conseils de sécurité</string>
+    <string name="home_privacy_title">Vie privée</string>
+    <string name="home_privacy_note">L\'analyse est locale par défaut. Aucun texte n\'est envoyé à un serveur sans votre accord. Ne saisissez jamais votre PIN, votre mot de passe ou un code reçu par SMS.</string>
 
     <!-- Écran d'analyse -->
     <string name="analyze_title">Analyser un SMS</string>
@@ -63,16 +82,5 @@
     <string name="cancel">Annuler</string>
     <string name="save">Enregistrer</string>
 
-    <!-- Conseils -->
-    <string name="tips_title">Conseils de sécurité</string>
-    <string name="tips_subtitle">Les bons réflexes face à un message suspect.</string>
-    <string-array name="security_tips">
-        <item>1. Ne communiquez jamais un code reçu par SMS, même à quelqu\'un qui prétend être un agent.</item>
-        <item>2. Méfiez-vous des promesses de gain : si c\'est trop beau pour être vrai, c\'est probablement une arnaque.</item>
-        <item>3. Vérifiez l\'expéditeur et le numéro, puis contactez l\'organisation par un canal officiel.</item>
-        <item>4. Ne cliquez pas sur les liens raccourcis reçus par SMS sans vérifier leur destination.</item>
-        <item>5. Aucune banque ni service sérieux ne demande votre mot de passe ou votre code PIN par message.</item>
-        <item>6. En cas de doute, ne payez pas et signalez le message à votre opérateur.</item>
-        <item>7. Si vous avez déjà communiqué des informations, changez vos codes et contactez votre banque immédiatement.</item>
-    </string-array>
+    <!-- Conseils : écran volontairement vide, aucun texte affiché. -->
 </resources>
