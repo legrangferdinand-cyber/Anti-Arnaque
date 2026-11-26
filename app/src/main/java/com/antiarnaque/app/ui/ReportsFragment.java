@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,18 +15,31 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.antiarnaque.app.R;
+import com.antiarnaque.app.data.HistoryDao;
 import com.antiarnaque.app.data.PreferencesManager;
+import com.antiarnaque.app.model.AnalysisResult;
+import com.antiarnaque.app.model.HistoryEntry;
+import com.antiarnaque.app.model.RiskLevel;
 import com.antiarnaque.app.report.ReportManager;
 import com.antiarnaque.app.util.AppExecutors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-/** Vue d'ensemble des signalements collectifs et configuration du backend. */
+import java.util.Collections;
+import java.util.List;
+
+/** Formulaire de signalement volontaire du mockup + configuration du backend. */
 public final class ReportsFragment extends Fragment {
 
     private TextView statsText;
     private TextView endpointText;
+    private TextView previewText;
+    private Spinner reasonSpinner;
+    private EditText commentInput;
+    private Button sendButton;
     private PreferencesManager preferences;
     private ReportManager reportManager;
+    private HistoryDao historyDao;
+    private HistoryEntry lastEntry;
 
     @Nullable
     @Override
@@ -34,12 +48,18 @@ public final class ReportsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_reports, container, false);
         statsText = view.findViewById(R.id.text_report_stats);
         endpointText = view.findViewById(R.id.text_endpoint);
+        previewText = view.findViewById(R.id.text_report_preview);
+        reasonSpinner = view.findViewById(R.id.spinner_reason);
+        commentInput = view.findViewById(R.id.edit_comment);
+        sendButton = view.findViewById(R.id.button_send_report);
         Button syncButton = view.findViewById(R.id.button_sync);
         Button configButton = view.findViewById(R.id.button_configure);
 
         preferences = new PreferencesManager(requireContext());
         reportManager = new ReportManager(requireContext());
+        historyDao = new HistoryDao(requireContext());
 
+        sendButton.setOnClickListener(v -> submitReport());
         syncButton.setOnClickListener(v -> AppExecutors.run(() -> {
             ReportManager.SyncResult result = reportManager.syncPending();
             AppExecutors.onMain(() -> {
@@ -54,7 +74,6 @@ public final class ReportsFragment extends Fragment {
                 refresh();
             });
         }));
-
         configButton.setOnClickListener(v -> showConfigDialog());
         return view;
     }
@@ -63,6 +82,58 @@ public final class ReportsFragment extends Fragment {
     public void onResume() {
         super.onResume();
         refresh();
+        loadPreview();
+    }
+
+    private void loadPreview() {
+        AppExecutors.run(() -> {
+            List<HistoryEntry> entries = historyDao.getAll();
+            HistoryEntry latest = entries.isEmpty() ? null : entries.get(0);
+            AppExecutors.onMain(() -> {
+                lastEntry = latest;
+                if (latest == null) {
+                    previewText.setText(R.string.report_preview_none);
+                } else {
+                    String message = latest.getMessage();
+                    String preview = message.length() > 160
+                            ? message.substring(0, 160) + "…" : message;
+                    previewText.setText(preview);
+                }
+            });
+        });
+    }
+
+    private void submitReport() {
+        if (lastEntry == null) {
+            Toast.makeText(requireContext(), R.string.report_error_no_message,
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+        int position = reasonSpinner.getSelectedItemPosition();
+        if (position <= 0) {
+            Toast.makeText(requireContext(), R.string.report_error_no_reason,
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String reason = reasonSpinner.getSelectedItem().toString();
+        String comment = commentInput.getText().toString().trim();
+        String fullReason = comment.isEmpty() ? reason : reason + " — " + comment;
+
+        AnalysisResult result = new AnalysisResult(lastEntry.getMessage(), lastEntry.getScore(),
+                lastEntry.getLevel() == RiskLevel.ELEVE ? "spam" : "legit",
+                lastEntry.getLevel(), Collections.singletonList(fullReason), null,
+                lastEntry.getTimestamp(), lastEntry.getEngine());
+
+        AppExecutors.run(() -> {
+            ReportManager.ReportResult outcome = reportManager.submit(lastEntry.getMessage(), result);
+            AppExecutors.onMain(() -> {
+                Toast.makeText(requireContext(),
+                        outcome.sent ? R.string.report_sent : R.string.report_saved,
+                        Toast.LENGTH_LONG).show();
+                commentInput.setText("");
+                refresh();
+            });
+        });
     }
 
     private void refresh() {

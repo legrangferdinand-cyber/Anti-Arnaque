@@ -71,7 +71,7 @@ Le branchement **Firebase** est décrit dans [`docs/INTEGRATION_FIREBASE.md`](do
 
 ## État d'avancement
 
-- [x] Interface 5 onglets (accueil / analyse / historique / signalements / conseils vides)
+- [x] Interface 6 onglets (accueil / analyse / résultat / historique / signalement / conseils vides), design conforme au mockup fourni
 - [x] Analyse heuristique locale + explicabilité
 - [x] Intégration API distante (Flask) avec repli hors ligne
 - [x] Historique SQLite

@@ -26,6 +26,18 @@
             style="@style/Widget.Material3.Button.TextButton" />
     </LinearLayout>
 
+    <EditText
+        android:id="@+id/edit_search_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/surface"
+        android:hint="@string/history_search_hint"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="10dp"
+        android:textSize="14sp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_history"
         android:layout_width="match_parent"

@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Anti-Arnaque</string>
-    <string name="splash_app_name">anti-arnaque</string>
+    <string name="splash_app_name">ANTIARNAQUE</string>
+    <string name="brand_subtitle">Détecteur intelligent de SMS frauduleux</string>
+    <string name="brand_tagline">Détecter les pièges, protéger les utilisateurs.</string>
 
     <!-- Navigation -->
     <string name="nav_home">Accueil</string>
-    <string name="nav_analyze">Analyser</string>
+    <string name="nav_analyze">Analyse SMS</string>
+    <string name="nav_result">Résultat</string>
     <string name="nav_history">Historique</string>
-    <string name="nav_reports">Signalements</string>
+    <string name="nav_reports">Signalement</string>
     <string name="nav_tips">Conseils</string>
 
     <!-- Écran d'accueil -->
@@ -30,34 +33,62 @@
 
     <!-- Écran d'analyse -->
     <string name="analyze_title">Analyser un SMS</string>
-    <string name="analyze_subtitle">Repérez les tentatives d\'arnaque en quelques secondes.</string>
-    <string name="hint_message">Collez le message suspect ici…</string>
+    <string name="analyze_subtitle">Collez ou saisissez le message à analyser</string>
+    <string name="hint_message">Collez ou saisissez le message à analyser</string>
+    <string name="analyze_counter">%1$d / 500</string>
     <string name="button_analyze">Analyser le message</string>
     <string name="button_clear">Effacer</string>
-    <string name="privacy_note">Analyse locale par défaut. Votre message n\'est jamais envoyé sans votre accord.</string>
+    <string name="privacy_note">Votre message sera transmis au serveur pour analyse.</string>
     <string name="error_empty_message">Saisissez un message à analyser.</string>
     <string name="error_short_message">Le message est trop court.</string>
     <string name="error_analysis_failed">L\'analyse a échoué. Réessayez.</string>
-    <string name="result_title">Résultat de l\'analyse</string>
+    <string name="result_title">Résultat</string>
     <string name="score_label">Score de risque</string>
     <string name="score_format">%d %%</string>
     <string name="level_label">Niveau de risque</string>
-    <string name="verdict_danger">⚠️ Message suspect — ne suivez aucune instruction.</string>
-    <string name="verdict_safe">✓ Aucun signe suspect majeur détecté.</string>
-    <string name="reasons_title">Pourquoi ce score ?</string>
+    <string name="verdict_danger">SMS potentiellement frauduleux</string>
+    <string name="verdict_safe">SMS vraisemblablement légitime</string>
+    <string name="reasons_title">Indices détectés</string>
     <string name="signals_title">Signaux détectés</string>
     <string name="engine_format">Moteur : %1$s</string>
 
-    <!-- Signalements -->
-    <string name="report_button">Signaler ce message</string>
-    <string name="report_done">Signalé ✓</string>
+    <!-- Écran résultat -->
+    <string name="result_score">%1$d/100</string>
+    <string name="result_risk">Risque %1$s</string>
+    <string name="result_badge_spam">SPAM</string>
+    <string name="result_badge_ham">HAM</string>
+    <string name="result_disclaimer">Score indicatif, pas une preuve de fraude.</string>
+    <string name="result_empty">Aucune analyse pour le moment. Lancez une analyse depuis l\'onglet Analyse SMS.</string>
+    <string name="result_recent_count">Dernières analyses : %1$d aujourd\'hui</string>
+
+    <!-- Signalement -->
+    <string name="report_button">Signaler ce SMS</string>
+    <string name="report_done">SMS signalé ✓</string>
     <string name="report_dialog_title">Signaler ce message ?</string>
     <string name="report_dialog_message">Seule une empreinte anonyme du message (SHA-256), le score et le motif seront transmis. Aucun texte brut ni donnée personnelle ne quitte votre téléphone.</string>
     <string name="report_saved">Signalement enregistré localement.</string>
     <string name="report_sent">Merci, signalement envoyé.</string>
     <string name="report_no_endpoint">Aucun serveur configuré : signalement conservé localement.</string>
-    <string name="report_title">Signalements collectifs</string>
-    <string name="report_intro">Les signalements anonymisés aident la communauté à repérer les campagnes de fraude. Vous pouvez les envoyer à un serveur Flask ou à une fonction Firebase.</string>
+    <string name="report_title">Signaler un SMS suspect</string>
+    <string name="report_intro">Aidez la communauté à se protéger en signalant ce message.</string>
+    <string name="report_preview_label">Aperçu du message :</string>
+    <string name="report_preview_none">Aucun message analysé récemment.</string>
+    <string name="report_reason_label">Raison du signalement *</string>
+    <string name="report_reason_prompt">Choisir une raison</string>
+    <string name="report_comment_label">Commentaire (optionnel)</string>
+    <string name="report_comment_hint">Décrivez pourquoi ce message est suspect...</string>
+    <string name="report_privacy_short">Signalement volontaire. Évitez partager des données personnelles.</string>
+    <string name="report_submit">Envoyer le signalement</string>
+    <string name="report_error_no_message">Analysez d\'abord un message à signaler.</string>
+    <string name="report_error_no_reason">Choisissez une raison.</string>
+    <string-array name="report_reasons">
+        <item>Choisir une raison</item>
+        <item>Promesse de gain financier</item>
+        <item>Demande d\'information confidentielle</item>
+        <item>Lien suspect</item>
+        <item>Usurpation d\'identité</item>
+        <item>Autre</item>
+    </string-array>
     <string name="report_stats">Total : %1$d  •  Envoyés : %2$d  •  En attente : %3$d</string>
     <string name="report_endpoint">Serveur : %1$s</string>
     <string name="report_endpoint_none">non configuré</string>
@@ -72,7 +103,8 @@
 
     <!-- Historique -->
     <string name="history_title">Historique des analyses</string>
-    <string name="history_empty">Aucune analyse pour le moment.\nRevenez dans l\'onglet Analyser pour commencer.</string>
+    <string name="history_search_hint">Rechercher dans l\'historique...</string>
+    <string name="history_empty">Aucune analyse pour le moment.\nRevenez dans l\'onglet Analyse SMS pour commencer.</string>
     <string name="clear_history_title">Effacer l\'historique ?</string>
     <string name="clear_history_message">Toutes les analyses enregistrées sur cet appareil seront supprimées.</string>
     <string name="button_clear_history">Tout effacer</string>

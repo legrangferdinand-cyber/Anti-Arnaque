@@ -1,10 +1,13 @@
 package com.antiarnaque.app.ui;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +36,8 @@ import java.util.Locale;
 public final class HistoryFragment extends Fragment {
 
     private final List<HistoryEntry> entries = new ArrayList<>();
+    private final List<HistoryEntry> allEntries = new ArrayList<>();
+    private EditText searchInput;
     private HistoryAdapter adapter;
     private TextView emptyView;
     private HistoryDao historyDao;
@@ -44,6 +49,7 @@ public final class HistoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_history, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.recycler_history);
         emptyView = view.findViewById(R.id.text_empty_history);
+        searchInput = view.findViewById(R.id.edit_search_history);
         Button clearButton = view.findViewById(R.id.button_clear_history);
         historyDao = new HistoryDao(requireContext());
 
@@ -59,6 +65,21 @@ public final class HistoryFragment extends Fragment {
                     historyDao.deleteById(entry.getId());
                     AppExecutors.onMain(HistoryFragment.this::load);
                 });
+            }
+        });
+
+        searchInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                applyFilter();
             }
         });
 
@@ -90,12 +111,25 @@ public final class HistoryFragment extends Fragment {
         AppExecutors.run(() -> {
             List<HistoryEntry> fresh = historyDao.getAll();
             AppExecutors.onMain(() -> {
-                entries.clear();
-                entries.addAll(fresh);
-                adapter.notifyDataSetChanged();
-                emptyView.setVisibility(entries.isEmpty() ? View.VISIBLE : View.GONE);
+                allEntries.clear();
+                allEntries.addAll(fresh);
+                applyFilter();
             });
         });
+    }
+
+    private void applyFilter() {
+        String query = searchInput.getText().toString().trim().toLowerCase(Locale.FRANCE);
+        entries.clear();
+        for (HistoryEntry entry : allEntries) {
+            if (query.isEmpty()
+                    || entry.getMessage().toLowerCase(Locale.FRANCE).contains(query)
+                    || entry.getLevel().getLabel().toLowerCase(Locale.FRANCE).contains(query)) {
+                entries.add(entry);
+            }
+        }
+        adapter.notifyDataSetChanged();
+        emptyView.setVisibility(entries.isEmpty() ? View.VISIBLE : View.GONE);
     }
 
     private void showDetail(HistoryEntry entry) {

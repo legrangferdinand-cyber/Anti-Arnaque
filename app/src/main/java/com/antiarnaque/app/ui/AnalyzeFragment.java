@@ -1,7 +1,9 @@
 package com.antiarnaque.app.ui;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +41,7 @@ public final class AnalyzeFragment extends Fragment {
     private TextView reasonsValue;
     private TextView signalsValue;
     private TextView engineValue;
+    private TextView counter;
     private Button reportButton;
 
     private AnalyzerRepository analyzer;
@@ -63,6 +66,7 @@ public final class AnalyzeFragment extends Fragment {
         reasonsValue = view.findViewById(R.id.text_reasons);
         signalsValue = view.findViewById(R.id.text_signals);
         engineValue = view.findViewById(R.id.text_engine);
+        counter = view.findViewById(R.id.text_counter);
         reportButton = view.findViewById(R.id.button_report);
 
         analyzer = new AnalyzerRepository(requireContext());
@@ -71,8 +75,27 @@ public final class AnalyzeFragment extends Fragment {
         analyzeButton.setOnClickListener(v -> runAnalysis());
         clearButton.setOnClickListener(v -> reset());
         reportButton.setOnClickListener(v -> askReport());
+        messageInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                updateCounter();
+            }
+        });
+        updateCounter();
 
         return view;
+    }
+
+    private void updateCounter() {
+        counter.setText(getString(R.string.analyze_counter, messageInput.getText().length()));
     }
 
     private void runAnalysis() {

@@ -9,12 +9,13 @@ import androidx.fragment.app.FragmentTransaction;
 import com.antiarnaque.app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-/** Coque de l'application : 5 onglets, navigation sans Navigation Component. */
+/** Coque de l'application : 6 onglets conformes au mockup. */
 public final class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNav;
     private AccueilFragment accueilFragment;
     private AnalyzeFragment analyzeFragment;
+    private ResultFragment resultFragment;
     private HistoryFragment historyFragment;
     private ReportsFragment reportsFragment;
     private TipsFragment tipsFragment;
@@ -26,6 +27,7 @@ public final class MainActivity extends AppCompatActivity {
 
         accueilFragment = new AccueilFragment();
         analyzeFragment = new AnalyzeFragment();
+        resultFragment = new ResultFragment();
         historyFragment = new HistoryFragment();
         reportsFragment = new ReportsFragment();
         tipsFragment = new TipsFragment();
@@ -60,6 +62,8 @@ public final class MainActivity extends AppCompatActivity {
             return accueilFragment;
         } else if (itemId == R.id.nav_analyze) {
             return analyzeFragment;
+        } else if (itemId == R.id.nav_result) {
+            return resultFragment;
         } else if (itemId == R.id.nav_history) {
             return historyFragment;
         } else if (itemId == R.id.nav_reports) {

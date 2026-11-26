@@ -44,6 +44,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="@string/brand_subtitle"
+                    android:textColor="#B9D4F0"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:text="@string/home_slogan"
                     android:textColor="@android:color/white"
                     android:textSize="14sp" />
